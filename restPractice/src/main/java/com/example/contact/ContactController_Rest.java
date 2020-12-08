@@ -1,6 +1,8 @@
 package com.example.contact;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +16,8 @@ public class ContactController_Rest {
     private ContactRepository contactRepository;
 
     @GetMapping()
-    public List<Contact> getContactsAll() {
-        return contactRepository.findAll(Sort.by(Sort.Direction.DESC, "no"));
+    public Page<Contact> getContactsAll(Pageable pageable) {
+        return contactRepository.findAll(pageable);
     }
     @GetMapping("{no}")
     public Optional<Contact> getContactOne(@PathVariable("no") long no) {
