@@ -1,11 +1,13 @@
 package com.example.employee;
 
+import com.example.department.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,5 +31,31 @@ public class EmployeeController {
 			}
 		}
 		return employeeList;
+	}
+
+	@GetMapping("find3/{name}")
+	public List<Employee> getDepartment3(@PathVariable("name") String name) {
+		List<Employee> list = employeeRepository.queryEmpByFetchJoin(name);
+		if (list.size() > 0) {
+			for (Employee e : list) {
+				e.getDepartment().setEmployees(null);
+			}
+		}
+		return list;
+	}
+
+	@GetMapping("find4/{name}")
+	public List<Employee> getDepartment4(@PathVariable("name") String name) {
+		List<Object[]> list = employeeRepository.queryEmpsByJPQL(name);
+		List<Employee> empList = new ArrayList<Employee>();
+		if (list.size() > 0) {
+			for (Object[] objs : list) {
+				Employee e = new Employee((String)objs[0], (String)objs[1], (String)objs[2]);
+				e.setDepartment(new Department((String)objs[3], (String)objs[4], (String)objs[5]));
+				e.getDepartment().setEmployees(null);
+				empList.add(e);
+			}
+		}
+		return empList;
 	}
 }
