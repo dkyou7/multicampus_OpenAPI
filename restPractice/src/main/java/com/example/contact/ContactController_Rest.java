@@ -1,37 +1,42 @@
 package com.example.contact;
 
+import com.example.error.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/contacts")
 public class ContactController_Rest {
-
     @Autowired
-    private ContactService contactService;
-
-
+    private ContactRepository contactRepository;
 
     @GetMapping()
-    public @ResponseBody Page getContactList_Rest(Pageable pageable) {
-        return contactService.getContactList(pageable);
+    public List<Contact> getContactsAll() {
+        return contactRepository.findAll(Sort.by(Sort.Direction.DESC, "no"));
     }
-
-    @PostMapping()
-    public @ResponseBody Result insertContact_Rest(@RequestBody Contact c){
-        return contactService.insertContact(c);
+    @GetMapping("{no}")
+    public Optional<Contact> getContactOne(@PathVariable("no") long no) {
+        return contactRepository.findById(no);
+    }
+    @PostMapping
+    public Contact insertContact(@RequestBody Contact c) {
+        return contactRepository.save(c);
     }
 
     @PutMapping("{no}")
-    public @ResponseBody Result updateContact_Rest(@PathVariable("no") int no, @RequestBody Contact c){
+    public Contact updateContact(@RequestBody Contact c, @PathVariable("no") long no) {
         c.setNo(no);
-        return contactService.updateContact(c);
+        return contactRepository.save(c);
     }
 
-    @DeleteMapping()
-    public @ResponseBody Result deleteContact_Rest(@RequestBody Contact c){
-        return contactService.deleteContact(c);
+    @DeleteMapping("{no}")
+    public void deleteContact(@PathVariable("no") long no) {
+        contactRepository.deleteById(no);
     }
 }

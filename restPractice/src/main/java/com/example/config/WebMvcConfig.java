@@ -1,17 +1,24 @@
 package com.example.config;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.springframework.web.servlet.view.xml.MappingJackson2XmlView;
 
+import java.nio.charset.Charset;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -47,11 +54,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return view;
     }
 
-    // FIXME :
     @Bean(name="xmlView")
     public View getXmlView() {
         MappingJackson2XmlView view = new MappingJackson2XmlView();
         view.setModelKey("data");
         return view;
+    }
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+        return restTemplateBuilder
+                .setConnectTimeout(Duration.ofMillis(5000))
+                .setReadTimeout(Duration.ofMillis(5000))
+                .additionalMessageConverters(new StringHttpMessageConverter(Charset.forName("UTF-8")))
+                .build();
     }
 }

@@ -16,7 +16,14 @@ import javax.persistence.Id;
 @Builder
 @JacksonXmlRootElement(localName = "contact")
 public class Contact {
-	
+//	@Entity
+//	@SequenceGenerator(name="CONTACT_SEQ_GENERATOR",
+//			sequenceName="CONTACT_SEQ", initialValue=1, allocationSize=1)
+//	public class Contact {
+//		@Id
+//		@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTACT_SEQ_GENERATOR")
+//		private int no;
+//	}
 	@JacksonXmlProperty(isAttribute = true)
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long no;
