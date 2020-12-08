@@ -2,7 +2,7 @@ package com.example.error;
 
 import com.example.contact.Contact;
 import com.example.contact.ContactRepository;
-import com.example.contact.ContactService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
