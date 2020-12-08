@@ -35,18 +35,23 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .setCacheControl(CacheControl.maxAge(Duration.ofHours(12)));
     }
 
+    /**
+     * viewResolver를 사용해보자.
+     */
+    // TODO : hi
     @Bean(name="jsonView")
     public View getJsonView() {
         MappingJackson2JsonView view = new MappingJackson2JsonView();
-//        view.setModelKey("data");
-//        view.setExtractValueFromSingleKeyModel(true);
+        view.setModelKey("data");
+        view.setExtractValueFromSingleKeyModel(true);
         return view;
     }
 
+    // FIXME :
     @Bean(name="xmlView")
     public View getXmlView() {
         MappingJackson2XmlView view = new MappingJackson2XmlView();
-//        view.setModelKey("data");
+        view.setModelKey("data");
         return view;
     }
 }
