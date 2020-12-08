@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/httpClient-test/httpClient-test.iml" filepath="$PROJECT_DIR$/httpClient-test/httpClient-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/multicampus_OpenAPI.iml" filepath="$PROJECT_DIR$/.idea/multicampus_OpenAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/restPractice/restPractice.iml" filepath="$PROJECT_DIR$/restPractice/restPractice.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test4/test4.iml" filepath="$PROJECT_DIR$/test4/test4.iml" />
     </modules>
   </component>
 </project>
