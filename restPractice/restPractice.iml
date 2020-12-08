@@ -6,7 +6,9 @@
     <content url="file://$MODULE_DIR$/../restPractice">
       <sourceFolder url="file://$MODULE_DIR$/../restPractice/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../restPractice/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../restPractice/src/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../restPractice/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../restPractice/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../restPractice/target" />
     </content>
     <orderEntry type="inheritedJdk" />

@@ -1,11 +1,15 @@
 package com.example.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.web.servlet.view.xml.MappingJackson2XmlView;
 
 import java.time.Duration;
 
@@ -29,5 +33,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/photos/**")
                 .addResourceLocations("classpath:/photos/")
                 .setCacheControl(CacheControl.maxAge(Duration.ofHours(12)));
+    }
+
+    @Bean(name="jsonView")
+    public View getJsonView() {
+        MappingJackson2JsonView view = new MappingJackson2JsonView();
+//        view.setModelKey("data");
+//        view.setExtractValueFromSingleKeyModel(true);
+        return view;
+    }
+
+    @Bean(name="xmlView")
+    public View getXmlView() {
+        MappingJackson2XmlView view = new MappingJackson2XmlView();
+//        view.setModelKey("data");
+        return view;
     }
 }
